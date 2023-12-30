@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+    <style>
+        .container-fluid{
+            background: linear-gradient(#cc2b5e, #753a88);
+            height: 1000px;
+        }
+
+        form{
+            margin-top: 100px;
+            padding-bottom: 100px !important;
+            padding-left: 20px;
+            padding-right: 20px;
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        h1{
+            padding-top: 20px;
+            padding-bottom: 50px;
+            text-align: center;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-weight: bolder;
+            font-size: 40px;
+        }
+
+        .form-control{
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn-danger{
+            margin-top: 50px !important;
+            margin-bottom: 50px !important;
+            width: 290px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            border-radius: 100px;
+        }
+
+        .btn-link{
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            font-weight: bolder;
+            text-decoration: none !important;
+        }
+
+        .footer{
+            color: black !important;
+            font-weight: lighter;
+            text-decoration: none !important;
+        }
+
+       
+
+
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 col-lg-4"></div>
+
+            <div class="col-xs-4 col-lg-4">
+                <form method="post">
+                    {% csrf_token %}
+                    <h1>Login</h1>
+                    <label for="email">Email Id</label>
+                    <input type="text" class="form-control" name="email" id="email" placeholder="Email Address">
+                    <label id="email_error"></label>
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                    <label id="password_error"></label>
+                    <button type="submit" class="btn btn-danger" onclick="return validation()">Login</button>
+                    <a class="btn btn-link" href="{% url 'signup' %}"><span class="footer">Don't have an account?</span> Signup</a>
+                    <label id="message"></label>
+                </form>
+            </div>
+
+            <div class="col-xs-4 col-lg-4"></div>
+        </div>
+    </div>
+
+    <script>
+        function validation(){
+            var status = 1
+            var email = document.getElementById('email')
+            var password = document.getElementById('password')
+
+            if(email.value == ""){
+                document.getElementById('email').style.borderColor="red"
+                document.getElementById('email_error').innerHTML="** Please Enter Your Email Id **"
+                document.getElementById('email_error').style.color="red"
+                document.getElementById('email_error').style.display="block"
+                var status = 0
+            }
+
+            else{
+                document.getElementById('email').style.borderColor="black"
+                document.getElementById('email_error').style.display="none"
+                var status = 1
+            }
+
+            if(password.value == ""){
+                document.getElementById('password').style.borderColor="red"
+                document.getElementById('password_error').innerHTML="** Please Enter Your Password **"
+                document.getElementById('password_error').style.color="red"
+                document.getElementById('password_error').style.display="block"
+                var status = 0
+            }
+
+            else{
+                document.getElementById('password').style.borderColor="black"
+                document.getElementById('password_error').style.display="none"
+                var status = 1
+            }
+
+            if(status == 1){
+                return true
+            }
+
+            if(status == 0){
+                return false
+            }
+
+
+        }
+
+    </script>
+
+    
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+</body>
+</html>

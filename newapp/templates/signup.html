@@ -1,0 +1,269 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+    <style>
+        .container-fluid{
+            background: linear-gradient(#2193b0, #6dd5ed);
+            height: 1500px;
+        }
+
+        form{
+            background-color: white;
+            margin-top: 100px;
+            margin-bottom: 100px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 30px;
+            padding-bottom: 50px;
+            border-radius: 10px;
+        }
+
+        h1{
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bolder;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 35px;
+        }
+
+        hr{
+            margin-bottom: 30px;
+        }
+
+        .form-control{
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn-dark{
+            width: 290px;
+            margin-top: 30px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            margin-bottom: 50px;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 col-lg-4"></div>
+
+            <div class="col-xs-4 col-lg-4">
+                <form method="post">
+                    {% csrf_token %}
+                    <h1>Registration Form</h1>
+                    <hr>
+                    <label for="fullname">Full Name</label>
+                    <input type="text" class="form-control" name="fullname" id="full_name" placeholder="Full Name" value="{{update.fullname}}">
+                    <label id="full_name_error"></label>
+                    <label for="phonenumber">Phone Number</label>
+                    <input type="text" class="form-control" name="phone" id="phone_number" placeholder="Phone Number" onkeyup="return phone_valid()" value="{{update.phone}}">
+                    <label id="phone_number_error"></label>
+                    <label for="emailaddress">Email Address</label>
+                    <input type="text" class="form-control" name="email" id="email_id" placeholder="Email Address" value="{{update.email}}">
+                    <label id="email_id_error"></label>
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" onkeyup="return password_valid()" value="{{update.password}}">
+                    <label id="password_error"></label>
+                    <label for="confirmpassword">Confirm Password</label>
+                    <input type="password" class="form-control" name="cpassword" id="confirm_password" placeholder="Confirm Password" onkeyup="return cpassword_valid()" value="{{update.cpassword}}">
+                    <label id="confirm_password_error"></label>
+                    <input type="checkbox" name="auth" id="auth" value="Yes" checked> By clicking you are agreed our <a href="">terms and condition</a>
+                    <label id="auth_error"></label>
+                    <button type="submit" class="btn btn-dark" onclick="return validation()">Signup</button>
+                </form>
+
+            </div>
+
+            <div class="col-xs-4 col-lg-4">
+
+            </div>
+        </div>
+    </div>
+   
+    
+
+    <script>
+        function validation(){
+            var status = 1
+            var fullname = document.getElementById('full_name')
+            var phonenumber = document.getElementById('phone_number')
+            var emailid = document.getElementById('email_id')
+            var password = document.getElementById('password')
+            var cpassword = document.getElementById('confirm_password')
+
+            if(fullname.value == ""){
+                document.getElementById('full_name').style.borderColor="red"
+                document.getElementById('full_name_error').innerHTML="** Enter Your Full Name **"
+                document.getElementById('full_name_error').style.color="red"
+                document.getElementById('full_name_error').style.display="block"
+                var status = 0
+            }
+
+            else{
+                document.getElementById('full_name').style.borderColor="black"
+                document.getElementById('full_name_error').style.display="none"
+                var status = 1
+            }
+
+            if(phonenumber.value == ""){
+                document.getElementById('phone_number').style.borderColor="red"
+                document.getElementById('phone_number_error').innerHTML="** Enter Your Phone Number **"
+                document.getElementById('phone_number_error').style.color="red"
+                document.getElementById('phone_number_error').style.display="block"
+                var status = 0
+            }
+
+            else{
+                document.getElementById('phone_number').style.borderColor="black"
+                document.getElementById('phone_number_error').style.display="none"
+                var status = 1
+            }
+
+            if(emailid.value == ""){
+                document.getElementById('email_id').style.borderColor="red"
+                document.getElementById('email_id_error').innerHTML="** Enter Your Email Address **"
+                document.getElementById('email_id_error').style.color="red"
+                document.getElementById('email_id_error').style.display="block"
+                var status = 0
+            }
+
+            else{
+                document.getElementById('email_id').style.borderColor="black"
+                document.getElementById('email_id_error').style.display="none"
+                var status = 1
+            }
+
+            if(password.value == ""){
+                document.getElementById('password').style.borderColor="red"
+                document.getElementById('password_error').innerHTML="** Enter Your Password **"
+                document.getElementById('password_error').style.color="red"
+                document.getElementById('password_error').style.display="block"
+                var status = 0
+            }
+
+            else{
+                document.getElementById('password').style.borderColor="black"
+                document.getElementById('password_error').style.display="none"
+                var status = 1
+            }
+
+            if(cpassword.value == ""){
+                document.getElementById('confirm_password').style.borderColor="red"
+                document.getElementById('confirm_password_error').innerHTML="** Enter Your Confirm Password **"
+                document.getElementById('confirm_password_error').style.color="red"
+                document.getElementById('confirm_password_error').style.display="block"
+                var status = 0
+            }
+
+            else{
+                document.getElementById('confirm_password').style.borderColor="black"
+                document.getElementById('confirm_password_error').style.display="none"
+                var status = 1
+            }
+
+            if(status == 1){
+                return true
+            }
+
+            if(status == 0){
+                return false
+            }
+        }
+
+        function phone_valid(){
+            var phonenumber = document.getElementById('phone_number').value
+            
+            if(phonenumber.length == 10){
+                document.getElementById('phone_number').style.borderColor="green"
+                document.getElementById('phone_number_error').innerHTML="** You entered a perfect phone number **"
+                document.getElementById('phone_number_error').style.color="green"
+                document.getElementById('phone_number_error').style.display="block"
+            }
+
+            if(phonenumber.length < 10){
+                document.getElementById('phone_number').style.borderColor="red"
+                document.getElementById('phone_number_error').innerHTML="** Phone Number Must Have 10 Numbers  **"
+                document.getElementById('phone_number_error').style.color="red"
+                document.getElementById('phone_number_error').style.display="block"
+            }
+
+            if(isNaN(phonenumber)){
+                document.getElementById('phone_number').style.borderColor="red"
+                document.getElementById('phone_number_error').innerHTML="** Please Enter A Valid Phone Number  **"
+                document.getElementById('phone_number_error').style.color="red"
+                document.getElementById('phone_number_error').style.display="block"
+            }
+        
+        }
+
+        function password_valid(){
+            var password = document.getElementById('password').value
+
+            if(password.length == 8){
+                document.getElementById('password').style.borderColor="green"
+                document.getElementById('password_error').innerHTML="** You Entered A Perfect Password **"
+                document.getElementById('password_error').style.color="green"
+                document.getElementById('password_error').style.display="block"
+            }
+
+            if(password.length <= 5){
+                document.getElementById('password').style.borderColor="red"
+                document.getElementById('password_error').innerHTML="** Password Must Have 8 Digits **"
+                document.getElementById('password_error').style.color="red"
+                document.getElementById('password_error').style.display="block"  
+            }
+
+            if(password.length > 8){
+                document.getElementById('password').style.borderColor="red"
+                document.getElementById('password_error').innerHTML="** Enter A Valid Password **"
+                document.getElementById('password_error').style.color="red"
+                document.getElementById('password_error').style.display="block"  
+            }
+        }
+
+        function cpassword_valid(){
+            var cpassword = document.getElementById('confirm_password').value
+
+            if(cpassword.length == 8){
+                document.getElementById('confirm_password').style.borderColor="green"
+                document.getElementById('confirm_password_error').innerHTML="** You Entered A Perfect Password **"
+                document.getElementById('confirm_password_error').style.color="green"
+                document.getElementById('confirm_password_error').style.display="block"
+            }
+
+            if(cpassword.length <= 5){
+                document.getElementById('confirm_password').style.borderColor="red"
+                document.getElementById('confirm_password_error').innerHTML="** Password And Confirm Password Must Be Same **"
+                document.getElementById('confirm_password_error').style.color="red"
+                document.getElementById('confirm_password_error').style.display="block"  
+            }
+
+            if(cpassword.length > 8){
+                document.getElementById('confirm_password').style.borderColor="red"
+                document.getElementById('confirm_password_error').innerHTML="** Enter A Valid Password **"
+                document.getElementById('confirm_password_error').style.color="red"
+                document.getElementById('confirm_password_error').style.display="block"  
+            }
+            
+        }
+    </script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+</body>
+</html>
